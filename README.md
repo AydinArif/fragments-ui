@@ -1,5 +1,5 @@
 # fragments-ui
 
 
-Author
+Author: <br>
 [Aydin Arif]
