@@ -1,28 +1,20 @@
-# -----------------------------
-# Stage 1 – Build the static site
-# -----------------------------
-FROM node:22-alpine AS builder
+# Use lightweight Node.js image
+FROM node:22-alpine
 
+# Set working directory
 WORKDIR /app
 
-# Copy only the package files first to leverage layer caching
+# Copy package files first (to leverage Docker caching)
 COPY package*.json ./
 
-# Install dependencies (production only)
-RUN npm ci
+# Install dependencies
+RUN npm install
 
-# Copy the rest of the app and build the optimized static files
+# Copy the rest of the project files
 COPY . .
-RUN npm run build
 
-# -----------------------------
-# Stage 2 – Production server
-# -----------------------------
-FROM nginx:alpine
+# Expose Parcel dev server port
+EXPOSE 1234
 
-# Copy the optimized build output from the builder stage
-COPY --from=builder /app/dist /usr/share/nginx/html
-
-# Expose port 80 and use NGINX to serve
-EXPOSE 80
-CMD ["nginx", "-g", "daemon off;"]
+# Run the development server
+CMD ["npm", "start"]
