@@ -18,6 +18,4 @@ This project was developed as part of the **Cloud Computing for Programmers (BTI
 - 🧩 Create and view text fragments via the Fragments API
 - ⚡ Built with Parcel for fast bundling and live reloading
 - 🐳 Includes a Dockerfile and .dockerignore following Docker best practices
-- 🌎 Simple, dark-themed UI styled with [Bamboo.css](https://bamboo-css.netlify.app/)
-
 ---
