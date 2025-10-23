@@ -20,3 +20,11 @@ This project was developed as part of the **Cloud Computing for Programmers (BTI
 - 🐳 Includes a Dockerfile and .dockerignore following Docker best practices
 
 ---
+
+##🧑‍💻 Technologies Used
+- JavaScript (ES Modules)
+- Parcel (bundler)
+- Docker (multi-stage builds, NGINX)
+- AWS Cognito / OIDC
+
+---
