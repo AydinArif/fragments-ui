@@ -21,7 +21,7 @@ This project was developed as part of the **Cloud Computing for Programmers (BTI
 
 ---
 
-##🧑‍💻 Technologies Used
+## 🧑‍💻 Technologies Used
 - JavaScript (ES Modules)
 - Parcel (bundler)
 - Docker (multi-stage builds, NGINX)
