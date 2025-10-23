@@ -21,5 +21,3 @@ This project was developed as part of the **Cloud Computing for Programmers (BTI
 - 🌎 Simple, dark-themed UI styled with [Bamboo.css](https://bamboo-css.netlify.app/)
 
 ---
-Author: <br>
-[Aydin Arif]
