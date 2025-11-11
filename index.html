@@ -52,6 +52,15 @@
         cursor: not-allowed;
       }
 
+      select {
+        margin-top: 0.5rem;
+        padding: 0.3rem;
+        background: #2a2f3a;
+        color: #fff;
+        border: 1px solid #444;
+        border-radius: 6px;
+      }
+
       .fragment-card {
         border: 1px solid #555;
         border-radius: 6px;
@@ -90,6 +99,12 @@
           cols="50"
           placeholder="Enter your text fragment here..."
         ></textarea>
+        <br />
+        <label for="fragmentType">Type:</label>
+        <select id="fragmentType">
+          <option value="text/plain">text/plain</option>
+          <option value="application/json">application/json</option>
+        </select>
         <br />
         <button id="createBtn">Create Fragment</button>
       </div>

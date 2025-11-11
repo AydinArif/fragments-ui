@@ -15,14 +15,17 @@ export async function getUserFragments(user) {
 }
 
 // Create a new fragment
-export async function createUserFragment(user, text) {
+export async function createUserFragment(user, data, type = 'text/plain') {
   try {
-    const res = await fetch(`${apiUrl}/v1/fragments?expand=1`, {
+    const res = await fetch(`${apiUrl}/v1/fragments`, {
       method: 'POST',
-      headers: user.authorizationHeaders('text/plain'),
-      body: text,
+      headers: user.authorizationHeaders(type),
+      body: data,
     });
+
     if (!res.ok) throw new Error(`${res.status} ${res.statusText}`);
+
+    // Return JSON response
     return await res.json();
   } catch (err) {
     console.error('Error creating fragment:', err);

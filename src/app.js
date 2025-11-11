@@ -28,9 +28,24 @@ async function init() {
 
   // Handle creating new fragments
   createBtn.onclick = async () => {
-    const text = document.querySelector('#fragmentText').value.trim();
-    if (!text) return alert('Please enter some text!');
-    await createUserFragment(user, text);
+    const textInput = document.querySelector('#fragmentText').value.trim();
+    const type = document.querySelector('#fragmentType').value;
+
+    if (!textInput) return alert('Please enter some text!');
+
+    let bodyToSend = textInput;
+
+    // ✅ Handle JSON input validation and formatting
+    if (type === 'application/json') {
+      try {
+        const parsed = JSON.parse(textInput);
+        bodyToSend = JSON.stringify(parsed, null, 2);
+      } catch (err) {
+        return alert('Invalid JSON format! Please enter valid JSON.');
+      }
+    }
+
+    await createUserFragment(user, bodyToSend, type);
     await loadFragments(user, fragmentsDiv);
     document.querySelector('#fragmentText').value = '';
   };
