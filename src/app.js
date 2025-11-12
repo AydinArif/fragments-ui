@@ -35,7 +35,7 @@ async function init() {
 
     let bodyToSend = textInput;
 
-    // ✅ Handle JSON input validation and formatting
+    
     if (type === 'application/json') {
       try {
         const parsed = JSON.parse(textInput);
@@ -64,7 +64,6 @@ async function loadFragments(user, container) {
     const div = document.createElement('div');
     div.className = 'fragment-card';
 
-    // Format to 12-hour time with AM/PM (no seconds)
     const created = new Date(frag.created).toLocaleString('en-US', {
       hour12: true,
       hour: 'numeric',
@@ -80,6 +79,7 @@ async function loadFragments(user, container) {
       <p><strong>Size:</strong> ${frag.size} bytes</p>
       <p><strong>Created:</strong> ${created}</p>
     `;
+
     container.appendChild(div);
   }
 }
