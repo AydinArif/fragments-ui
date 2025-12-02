@@ -1,5 +1,5 @@
 // src/api.js
-const apiUrl = process.env.API_URL || 'http://localhost:8080';
+const apiUrl = 'http://fragments-lb-559072708.us-east-1.elb.amazonaws.com'
 
 // Get all user fragments
 export async function getUserFragments(user) {
