@@ -55,16 +55,27 @@ async function init() {
 async function loadFragments(user, container) {
   container.innerHTML = '';
   const data = await getUserFragments(user);
-  if (!data?.fragments?.length) {
+
+  // The API returns data in different structures. We need to find the array of fragments.
+  // It could be in data.fragments, or it could be the data object itself.
+  const fragments = data.fragments || data;
+
+  // Ensure we have an array to work with.
+  if (!Array.isArray(fragments) || fragments.length === 0) {
     container.innerHTML = '<p>No fragments found.</p>';
     return;
   }
 
-  for (const frag of data.fragments) {
+  // Create cards for each fragment
+  for (const item of fragments) {
+    // The actual fragment data might be nested in a `fragment` property, or it might be the item itself.
+    // This check handles all known inconsistencies.
+    const fragment = item.fragment || item;
+
     const div = document.createElement('div');
     div.className = 'fragment-card';
 
-    const created = new Date(frag.created).toLocaleString('en-US', {
+    const created = new Date(fragment.created).toLocaleString('en-US', {
       hour12: true,
       hour: 'numeric',
       minute: '2-digit',
@@ -74,9 +85,9 @@ async function loadFragments(user, container) {
     });
 
     div.innerHTML = `
-      <p><strong>ID:</strong> ${frag.id}</p>
-      <p><strong>Type:</strong> ${frag.type}</p>
-      <p><strong>Size:</strong> ${frag.size} bytes</p>
+      <p><strong>ID:</strong> ${fragment.id}</p>
+      <p><strong>Type:</strong> ${fragment.type}</p>
+      <p><strong>Size:</strong> ${fragment.size} bytes</p>
       <p><strong>Created:</strong> ${created}</p>
     `;
 

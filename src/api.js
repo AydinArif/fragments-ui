@@ -1,11 +1,14 @@
 // src/api.js
-const apiUrl = 'http://fragments-lb-559072708.us-east-1.elb.amazonaws.com'
+const apiUrl = process.env.API_URL;
 
 // Get all user fragments
 export async function getUserFragments(user) {
   try {
-    const res = await fetch(`${apiUrl}/v1/fragments?expand=1`, {
-      headers: user.authorizationHeaders(),
+    const res = await fetch(`${apiUrl}/v1/fragments`, {
+      method: 'GET',
+      headers: {
+        Authorization: user.authorizationHeaders()['Authorization'],
+      },
     });
     if (!res.ok) throw new Error(`${res.status} ${res.statusText}`);
     return await res.json();
