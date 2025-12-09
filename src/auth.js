@@ -35,6 +35,8 @@ function formatUser(user) {
     accessToken: user.access_token,
     authorizationHeaders: (type = 'application/json') => ({
       'Content-Type': type,
+      // The backend currently validates the Cognito ID token (token_use === 'id').
+      // Send the ID token here so the verifier on the backend accepts it.
       Authorization: `Bearer ${user.id_token}`,
     }),
   };
