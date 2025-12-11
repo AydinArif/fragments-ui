@@ -28,15 +28,13 @@ export async function signIn() {
 function formatUser(user) {
   console.log('User Authenticated', { user });
   return {
-    // Use the full name if available
-    username: user.profile.name || `${user.profile.given_name || ''} ${user.profile.family_name || ''}`.trim() || user.profile['cognito:username'],
+    // If you add any other profile scopes, you can include them here
+    username: user.profile['cognito:username'],
     email: user.profile.email,
     idToken: user.id_token,
     accessToken: user.access_token,
     authorizationHeaders: (type = 'application/json') => ({
       'Content-Type': type,
-      // The backend currently validates the Cognito ID token (token_use === 'id').
-      // Send the ID token here so the verifier on the backend accepts it.
       Authorization: `Bearer ${user.id_token}`,
     }),
   };

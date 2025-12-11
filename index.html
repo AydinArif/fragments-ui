@@ -1,119 +1,202 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <title>Fragments UI</title>
-    <link rel="stylesheet" href="https://unpkg.com/bamboo.css" />
 
-    <style>
-      body {
-        background-color: #1e222a;
-        color: #f5f5f5;
-        font-family: system-ui, sans-serif;
-        margin: 2rem;
-      }
+<head>
+  <meta charset="utf-8" />
+  <title>Fragments UI</title>
+  <link rel="stylesheet" href="https://unpkg.com/bamboo.css" />
 
-      h1 {
-        color: #ffffff;
-        margin-bottom: 0.5rem;
-      }
+  <style>
+    :root{
+      --bg: #0f1724; /* deep navy */
+      --muted: #9fb3c8; /* soft muted text */
+      --text: #e6eef8; /* primary text */
+      --accent: #2dd4bf; /* teal accent */
+      --accent-2: #60a5fa; /* soft blue accent */
+      --card-bg: rgba(255,255,255,0.03);
+      --glass-border: rgba(255,255,255,0.04);
+      --focus: rgba(45,212,191,0.18);
+    }
 
-      h2,
-      h3 {
-        margin-bottom: 0.5rem;
-      }
+    body {
+      background-color: var(--bg);
+      color: var(--text);
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      margin: 1.5rem;
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+    }
 
-      nav {
-        margin-bottom: 1rem;
-      }
+    h1 {
+      color: var(--accent);
+      font-size: 2.4rem;
+      margin-bottom: 1rem;
+      text-align: center;
+      font-weight: 700;
+      letter-spacing: -0.5px;
+      text-shadow: 0 2px 12px rgba(45,212,191,0.06);
+    }
 
-      #create-section textarea {
-        width: 100%;
-        min-height: 70px;
-        background: #2a2f3a;
-        color: #fff;
-        border: 1px solid #444;
-        border-radius: 6px;
-        padding: 0.6rem;
-      }
+    h2 { color: var(--text); margin-bottom: 0.75rem; font-weight: 600; }
+    h3 { color: var(--muted); margin-bottom: 0.5rem; font-weight: 600; }
 
-      button {
-        background-color: #2f81f7;
-        color: #fff;
-        border: none;
-        border-radius: 5px;
-        padding: 0.45rem 1rem;
-        cursor: pointer;
-        margin-top: 0.4rem;
-      }
+    nav { text-align: center; margin-bottom: 1.5rem; }
 
-      button:disabled {
-        opacity: 0.5;
-        cursor: not-allowed;
-      }
+    #create-section textarea {
+      width: 100%;
+      min-height: 90px;
+      background: var(--card-bg);
+      color: var(--text);
+      border: 1px dashed var(--glass-border);
+      border-radius: 12px;
+      padding: 0.85rem;
+      font-size: 1rem;
+      transition: box-shadow 0.15s ease, transform 0.12s ease;
+      backdrop-filter: blur(4px);
+    }
 
-      select {
-        margin-top: 0.5rem;
-        padding: 0.3rem;
-        background: #2a2f3a;
-        color: #fff;
-        border: 1px solid #444;
-        border-radius: 6px;
-      }
+    #create-section textarea:focus {
+      border-color: var(--focus);
+      outline: none;
+      box-shadow: 0 6px 20px rgba(8,16,30,0.6);
+      transform: translateY(-1px);
+    }
 
-      .fragment-card {
-        border: 1px solid #555;
-        border-radius: 6px;
-        background-color: #2b303b;
-        padding: 0.7rem 1rem;
-        margin-bottom: 0.6rem;
-        line-height: 1.3;
-      }
+    #create-section input[type="file"] { margin-top: 1rem; display: block; }
 
-      .fragment-card p {
-        margin: 0.25rem 0;
-      }
+    button {
+      background-color: var(--accent);
+      color: #042027;
+      border: none;
+      border-radius: 12px;
+      padding: 0.6rem 1.1rem;
+      cursor: pointer;
+      margin-top: 0.5rem;
+      font-weight: 700;
+      transition: transform 0.16s ease, box-shadow 0.16s ease;
+      box-shadow: 0 6px 18px rgba(2,6,23,0.45);
+    }
 
-      .fragment-card strong {
-        color: #9cdcfe;
-      }
-    </style>
+    button:hover:not(:disabled) {
+      transform: translateY(-2px) scale(1.02);
+      box-shadow: 0 10px 30px rgba(2,6,23,0.55);
+    }
 
-    <script type="module" src="src/app.js"></script>
-  </head>
-  <body>
-    <h1>Fragments UI</h1>
+    button:disabled { opacity: 0.5; cursor: not-allowed; }
 
-    <nav>
-      <button id="login">Login</button>
-    </nav>
+    .fragment-card {
+      border: 1px solid var(--glass-border);
+      border-radius: 12px;
+      background-color: var(--card-bg);
+      padding: 1rem 1.25rem;
+      margin-bottom: 1rem;
+      line-height: 1.45;
+      box-shadow: 0 6px 18px rgba(2,6,23,0.6);
+      transition: transform 0.12s ease, box-shadow 0.12s ease;
+    }
 
-    <section id="user" hidden>
-      <h2 id="welcome"></h2>
+    .fragment-card:hover { transform: translateY(-3px); box-shadow: 0 18px 40px rgba(2,6,23,0.7); }
 
-      <div id="create-section">
-        <h3>Create Fragment</h3>
-        <textarea
-          id="fragmentText"
-          rows="3"
-          cols="50"
-          placeholder="Enter your text fragment here..."
-        ></textarea>
-        <br />
-        <label for="fragmentType">Type:</label>
-        <select id="fragmentType">
-          <option value="text/plain">text/plain</option>
-          <option value="application/json">application/json</option>
-          <option value="text/markdown">text/markdown</option>
-        </select>
-        <br />
-        <button id="createBtn">Create Fragment</button>
+    .fragment-card p { margin: 0.3rem 0; color: var(--muted); }
+
+    .fragment-card strong { color: var(--accent-2); }
+
+    .fragment-card button { margin-right: 0.5rem; padding: 0.42rem 0.9rem; font-size: 0.92rem; }
+
+    .fragment-card .delete-btn:hover:not(:disabled) { background-color: #e11d48; color: #fff; }
+
+    /* Modal styles */
+    .modal { display: none; position: fixed; z-index: 1000; left: 0; top: 0; width: 100%; height: 100%; background-color: rgba(2,6,23,0.6); }
+
+    .modal-content {
+      background-color: #071127;
+      margin: 10% auto;
+      padding: 1.6rem;
+      border-radius: 12px;
+      width: 92%;
+      max-width: 520px;
+      box-shadow: 0 20px 60px rgba(2,6,23,0.8);
+      border: 1px solid var(--glass-border);
+    }
+
+    .modal-content h3 { margin-top: 0; color: var(--accent); }
+
+    .modal-content select { width: 100%; padding: 0.55rem; margin: 0.8rem 0; border: 1px solid var(--glass-border); border-radius: 8px; font-size: 1rem; background: var(--card-bg); color: var(--text); -webkit-appearance: none; appearance: none; }
+
+    /* Ensure dropdown options are high-contrast and readable on dark background */
+    .modal-content select option {
+      background-color: #071127; /* same as modal content background */
+      color: var(--text);
+    }
+
+    /* Muted color for disabled options */
+    .modal-content select option[disabled] {
+      color: var(--muted);
+    }
+
+    .modal-content select:focus {
+      outline: none;
+      box-shadow: 0 6px 18px rgba(2,6,23,0.4);
+    }
+
+    .modal-content button { margin-right: 0.5rem; }
+  </style>
+
+
+  <script type="module" src="./src/app.js"></script>
+</head>
+
+<body>
+  <h1>Fragments UI</h1>
+
+  <nav>
+    <button id="login">Login</button>
+  </nav>
+
+  <section id="user" hidden>
+    <h2 id="welcome"></h2>
+
+    <div id="create-section">
+      <h3>Create Fragment</h3>
+      <label for="fragmentType">Type:</label>
+      <select id="fragmentType">
+        <option value="text/plain">Text (Plain)</option>
+        <option value="text/markdown">Markdown</option>
+        <option value="text/html">HTML</option>
+        <option value="text/csv">CSV</option>
+        <option value="application/json">JSON</option>
+        <option value="application/yaml">YAML</option>
+        <option value="image/png">Image (PNG)</option>
+        <option value="image/jpeg">Image (JPEG)</option>
+        <option value="image/webp">Image (WebP)</option>
+        <option value="image/avif">Image (AVIF)</option>
+        <option value="image/gif">Image (GIF)</option>
+      </select>
+      <textarea id="fragmentText" rows="3" cols="50" placeholder="Enter your text fragment here..."></textarea>
+      <input type="file" id="fragmentFile" accept="image/*" style="display: none;" />
+      <br />
+      <button id="createBtn">Create Fragment</button>
+    </div>
+
+    <div id="fragments-section">
+      <h3>Your Fragments</h3>
+      <div id="fragments"></div>
+    </div>
+  </section>
+
+  <!-- Modal for conversions and updates -->
+  <div id="conversionModal" class="modal">
+    <div class="modal-content">
+      <h3 id="modalTitle">Select Format</h3>
+      <select id="formatSelect" style="display: none;"></select>
+      <textarea id="textInput" rows="5"
+        style="display: none; width: 100%; padding: 0.5rem; border: 2px solid #ffb677; border-radius: 8px; font-size: 1rem;"></textarea>
+      <div>
+        <button id="modalConfirm">Confirm</button>
+        <button id="modalCancel" style="background-color: #6c757d;">Cancel</button>
       </div>
+    </div>
+  </div>
+</body>
 
-      <div id="fragments-section">
-        <h3>Your Fragments</h3>
-        <div id="fragments"></div>
-      </div>
-    </section>
-  </body>
 </html>
